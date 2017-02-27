@@ -1,5 +1,8 @@
 package com.example.morga.practicamapas;
 
+import android.graphics.drawable.Icon;
+import android.media.Image;
+
 /**
  * Created by morga on 24/02/2017.
  */
