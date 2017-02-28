@@ -1,6 +1,7 @@
 package com.example.morga.practicamapas;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Icon;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -67,7 +68,7 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
 
 
-        //Voy a añadir los items de la lista
+        // Voy a añadir los items de la lista
         Monumento[] datos = new Monumento[] {
                 new Monumento("Casa de caridad de Barcelona", "La casa de caridad es una institución de caridad que se hallaba situada en la calle de Montealegre de Barcelona. En la actualidad parte del edificio lo ocupa el Centro de Cultura Contemporánea de Barcelona (CCCB) que acoge exposiciones fijas dedicadas a diversos estilos artísticos que van desde la fotografía a la escultura, pasando por la pintura o los frescos." , "casa_caridad"),
                 new Monumento("Convento de los Ángeles", "El Convento de los Ángeles (en catalán: Convent dels Àngels) es una edificación concebida como convento para monjas dominicas en la ciudad española de Barcelona. Ubicado en el carrer dels Àngels, número 3, sirve en la actualidad como espacio para actividades culturales, formado parte del conjunto del Museo de Arte Contemporáneo de Barcelona (MACBA). En 1993, partes del mismo fueron declarados Bien de Interés Cultural (BIC) y Bien Cultural de Interés Nacional de Cataluña." , "convento_angeles"),
@@ -84,15 +85,28 @@ public class MainActivity extends AppCompatActivity
 
         lstMonumentos.setAdapter(adapterMonumentos);
 
-        //Este metodo es para saber en que item de la lista han clicado y muestra un toast montrandolo
+        // Este metodo es para saber en que item de la lista han clicado y muestra un toast montrandolo
         lstMonumentos.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
             public void onItemClick(AdapterView<?> a, View v, int position, long id)
             {
+                // Procedo a coger el titulo del elemento de la lista seleccionado,
+                // y a enviarlo a la activity de pregunta para cargar la pregunta
+                String tituloMonumentoSeleccionado = ((Monumento)a.getItemAtPosition(position)).getTitulo();
+                String imagenMonumentoSeleccionado = ((Monumento)a.getItemAtPosition(position)).getImagen();
 
 
-                
+                Bundle bundle = new Bundle();
+
+                bundle.putString("titulo",tituloMonumentoSeleccionado);
+                bundle.putString("imagen",imagenMonumentoSeleccionado);
+
+                Intent intent = new Intent(MainActivity.this, PreguntaActivity.class);
+
+                intent.putExtras(bundle);
+
+                startActivity(intent);
             }
         });
 
