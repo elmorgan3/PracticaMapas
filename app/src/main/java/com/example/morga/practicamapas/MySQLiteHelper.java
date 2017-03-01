@@ -17,8 +17,35 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
 
     // Campos de la base de datos de RESPUESTAS
-    String sqlCreateRespuesta = "CREATE TABLE respuestas ( _id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-            "respuesta TEXT )";
+    String sqlCreateRespuesta = "CREATE TABLE respuestas ( monumento TEXT PRIMARY KEY, " +
+            "respuesta TEXT)";
+
+    // Hago los insert de los monumentos que habra en la bbdd
+    // Uso el nombre de la imagen para el nombre del monumento
+    String sqlInsertMonumentoCasaCaridad = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('casa_caridad', null)";
+
+    String sqlInsertMonumentoConventoAngeles = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('convento_angeles', null)";
+
+    String sqlInsertMonumentoIglesiaLlatzer = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('iglesia_llatzer', null)";
+
+    String sqlInsertMonumentoSantaCreu = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('santa_creu', null)";
+
+    String sqlInsertMonumentoTeatroRaval = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('teatro_raval', null)";
+
+    String sqlInsertMonumentoCiutatVella = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('ciutat_vella', null)";
+
+    String sqlInsertMonumentoModernismo = "INSERT INTO respuestas (monumento, respuesta)" +
+            "VALUES ('modernismo', null)";
+
+
+
+
 
     public MySQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -33,7 +60,17 @@ public class MySQLiteHelper extends SQLiteOpenHelper {
 
         // //query de creacion de la base de datos con las tablas
         db.execSQL(sqlCreateRespuesta);
-        
+
+        // Hago los insert de los monumentos que habra en la base de datos
+        db.execSQL(sqlInsertMonumentoCasaCaridad);
+        db.execSQL(sqlInsertMonumentoConventoAngeles);
+        db.execSQL(sqlInsertMonumentoIglesiaLlatzer);
+        db.execSQL(sqlInsertMonumentoSantaCreu);
+        db.execSQL(sqlInsertMonumentoTeatroRaval);
+        db.execSQL(sqlInsertMonumentoCiutatVella);
+        db.execSQL(sqlInsertMonumentoModernismo);
+
+
 
     }
 

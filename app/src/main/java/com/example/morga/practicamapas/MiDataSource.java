@@ -18,8 +18,9 @@ public class MiDataSource {
     private MySQLiteHelper dbHelper;
 
     public static final String TABLE_RESPUESTAS = "respuestas";
-    public static final String RESPUESTA_ID = "_id";
+    public static final String RESPUESTA_MONUMENTO = "monumento";
     public static final String RESPUESTA_RESPUESTA = "respuesta";
+
 
     //Constructor
     public MiDataSource(Context context) {
@@ -43,43 +44,31 @@ public class MiDataSource {
         dbR.close();
     }
 
-    //*********
-    //Funcion para insertar un Articulo
-    //*********
-    //Creamos un nuevo articulo y devolbemos el id si lo necesitamos
-    public long Insert (String respuesta)
-    {
-        //Ponemos los valores que seran insertados en la bbdd
-        ContentValues values = new ContentValues();
-
-        values.put(RESPUESTA_RESPUESTA, respuesta);
-
-        //Insertamos el Articulo
-        return dbW.insert(TABLE_RESPUESTAS, null, values);
-    }
 
     //*********
     //Funcion para actualizar un Articulo
     //*********
     //Creamos un nuevo articulo y devolbemos el id si lo necesitamos
-    public void Update(long id, String respuesta)
+    public void Update(String monumento,String respuesta)
     {
         // Modifiquem els valors de las tasca amb clau primària "id"
         ContentValues values = new ContentValues();
+
         values.put(RESPUESTA_RESPUESTA, respuesta);
 
-        dbW.update(TABLE_RESPUESTAS,values, RESPUESTA_ID + " = ?", new String[] { String.valueOf(id) });
+
+        dbW.update(TABLE_RESPUESTAS,values, RESPUESTA_MONUMENTO + " = ?", new String[] { String.valueOf(monumento) });
     }
 
     //**********
     // Funciion que retorna solo el id pedido
     //**********
-    public Cursor Respuesta(long id)
+    public Cursor Respuesta(String monumeto)
     {
         // Retorna un cursor només amb el id indicat
         // Retornem les tasques que el camp DONE = 1
-        return dbR.query(TABLE_RESPUESTAS, new String[] { RESPUESTA_ID, RESPUESTA_RESPUESTA},
-                RESPUESTA_ID+ "=?", new String[]{String.valueOf(id)},
+        return dbR.query(TABLE_RESPUESTAS, new String[] { RESPUESTA_MONUMENTO, RESPUESTA_RESPUESTA},
+                RESPUESTA_MONUMENTO+ "=?", new String[]{String.valueOf(monumeto)},
                 null,null,null
                 );
 

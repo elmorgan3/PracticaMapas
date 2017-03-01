@@ -1,6 +1,7 @@
 package com.example.morga.practicamapas;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -17,8 +18,10 @@ public class PreguntaActivity extends AppCompatActivity {
     EditText etRespuesta;
     String nombreImagen;
 
-    private long idRespuesta;
+
     private MiDataSource bd;
+
+    int primeraVez;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,8 @@ public class PreguntaActivity extends AppCompatActivity {
         txtPregunta = (TextView) findViewById(R.id.textViewPregunta);
         etRespuesta = (EditText) findViewById(R.id.editTextRespuesta);
 
+        bd = new MiDataSource(this);
+
         // Botones de aceptar y cancelar
         Button btnAceptar = (Button) findViewById(R.id.buttonAceptar);
 
@@ -38,7 +43,7 @@ public class PreguntaActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                aceptarCambios();
+                AceptarCambios();
             }
         });
 
@@ -49,7 +54,7 @@ public class PreguntaActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View v) {
-                cancelarCambios();
+                CancelarCambios();
             }
         });
 
@@ -58,6 +63,7 @@ public class PreguntaActivity extends AppCompatActivity {
 
         txtTituloMonumento.setText(bundle.getString("titulo"));
         nombreImagen = bundle.getString("imagen");
+
 
         // Aprobecho este switch para poner la imagen correspondiente
         // para poner tambien la pregunta que toca
@@ -101,23 +107,50 @@ public class PreguntaActivity extends AppCompatActivity {
 
 
 
+        CargarDatos();
+    }
 
+    //**********
+    //Funcion que carga los datos
+    //**********
+    private void CargarDatos()
+    {
+
+        // Demanem un cursor que retorna un sol registre amb les dades de la tasca
+        // Això es podria fer amb un classe pero...
+        Cursor datos = bd.Respuesta(nombreImagen);
+        datos.moveToFirst();
+
+        // Carreguem les dades en la interfície
+
+        etRespuesta.setText(datos.getString(datos.getColumnIndex(MiDataSource.RESPUESTA_RESPUESTA)));
 
 
     }
 
+
+
     //**********
     //Funcion CREAR O ACTUALIZAR los datos
     //**********
-    private void aceptarCambios() {
+    private void AceptarCambios() {
+
+        String respuesta = etRespuesta.getText().toString();
         // Validem les dades
+        // Mirem si estem creant o estem guardant
+
+        bd.Update(nombreImagen,respuesta);
+
+        finish();
 
     }
 
     //**********
     //Funcion CANCELAR
     //**********
-    private void cancelarCambios() {
+    private void CancelarCambios() {
 
+
+        finish();
     }
 }

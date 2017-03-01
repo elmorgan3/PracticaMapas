@@ -15,7 +15,8 @@
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
 
         <ImageView
             android:layout_width="match_parent"
@@ -52,7 +53,6 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/editTextRespuesta"
-        android:hint="Respuesta"
         android:layout_weight="1.25" />
 
     <Space
@@ -69,14 +69,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonAceptar"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="AceptarCambios" />
 
         <Button
             android:text="Cancelar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/buttonCancelar"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:onClick="CancelarCambios" />
     </LinearLayout>
 
 </LinearLayout>
